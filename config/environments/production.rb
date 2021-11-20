@@ -101,7 +101,15 @@ Rails.application.configure do
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
   # to send a subsequent read to the primary.
-  #
+  ActionMailer::Base.smtp_settings = {
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => 'yourapp.heroku.com', # UPDATE THIS VALUE WITH YOUR OWN APP
+    :authentication => :plain,
+  }
+  ActionMailer::Base.delivery_method = :smtp
   # The `database_resolver` class is used by the middleware to determine which
   # database is appropriate to use based on the time delay.
   #
